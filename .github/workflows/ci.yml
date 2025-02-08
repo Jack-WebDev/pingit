@@ -58,9 +58,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: 🔄 Run Database Migrations
-        run: pnpm migrate
-
       - name: 🏗 Build
         run: pnpm build
 
