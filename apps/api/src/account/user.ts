@@ -19,11 +19,6 @@ export enum Title {
   Other = 'Other',
 }
 
-export enum UserRole {
-  Admin = 'Admin',
-    Staff = 'Staff',
-}
-
 export enum Race {
   African = 'African',
   Coloured = 'Coloured',
@@ -48,7 +43,6 @@ export class User extends BaseModel {
 
   id: string = '';
   sequence: number = 0;
-  role: UserRole = UserRole.Admin;
   status: UserStatus = UserStatus.Active;
   email: string = '';
   title: Title | null = null;

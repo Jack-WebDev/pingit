@@ -4,7 +4,7 @@ import { verify } from 'argon2';
 import { Context } from '~/context';
 import { Client, ClientScope } from './auth/client';
 import { Token } from './auth/token';
-import { User, UserRole, UserStatus } from './account';
+import { User, UserStatus } from './account';
 
 /**
  * The `AuthContext` is part of the `RequestContext` and contains info about
@@ -68,19 +68,6 @@ export class AuthContext {
 
   public isActiveUser(): boolean {
     return this.user?.status === UserStatus.Active;
-  }
-
-  public hasUserRole(role: UserRole): boolean {
-    return this.user?.role === role;
-  }
-
-  public hasOneOfRole(roles: UserRole[]): boolean {
-    const role = this.user?.role;
-    if (!role) {
-      return false;
-    }
-
-    return roles.includes(role);
   }
 
   isAuthClient(): boolean {

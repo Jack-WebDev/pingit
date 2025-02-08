@@ -1,8 +1,8 @@
-import tsconfigPaths from 'vite-tsconfig-paths';
+// import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
 export const baseConfig = defineConfig({
-  plugins: [tsconfigPaths()],
+  // plugins: [tsconfigPaths()],
   test: {
     globals: true,
     setupFiles: [

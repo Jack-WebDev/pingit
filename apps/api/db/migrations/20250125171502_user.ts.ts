@@ -13,7 +13,6 @@ export async function up(knex: Knex): Promise<void> {
         t.string('gender').nullable();
         t.date('birth_date').nullable();
         t.string('id_number').nullable().unique();
-        t.string('role').notNullable();
         t.string('password').nullable();
         t.string('status').notNullable().defaultTo('Active');
         t.timestamps(true, true);

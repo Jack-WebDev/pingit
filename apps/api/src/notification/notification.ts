@@ -9,13 +9,11 @@ export enum NotificationCategory {
 }
 
 export enum NotificationMessage { 
-  UserRole = "Your role has been updated",
   AccountActivation = "Your account has been activated",
   AccountDetailUpdate = "Your account details have been updated",
 }
 
 export enum NotificationTitle {
-  UserRole = "User Role Updated",
   AccountActivation = "Account Activated",
   AccountDetailUpdate = "Account Detail Updated",
 }

@@ -14,9 +14,10 @@ export class Type extends BaseModel {
   id: string;
   identifier: TypeIdentifier;
 
-  // constructor(id: string, identifier: TypeIdentifier) {
-  //   super();
-  //   this.id = id;
-  //   this.identifier = identifier;
-  // }
+
+  constructor(id: string, identifier: TypeIdentifier) {
+    super();
+    this.id = id;
+    this.identifier = identifier;
+  }
 }

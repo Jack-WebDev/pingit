@@ -4,13 +4,13 @@ import { generateFakeSouthAfricanID, getDateOfBirthFromID, generateCUID } from '
 import * as argon from 'argon2';
 import { Knex } from 'knex';
 import { startCase } from 'lodash';
-import { Race, Title, UserRole, UserStatus } from '~/account';
+import { Race, Title, UserStatus } from '~/account';
 
-const usersList = Array.from({ length: 200 }).map((_, index) => faker.internet.email());
+const usersList = Array.from({ length: 100 }).map((_, index) => faker.internet.email());
 
 const list = [
-  'jack-admin@gmail.com',
-  'jack-staff@gmail.com',
+  'jackwebdev@gmail.com',
+  'jackbuda@gmail.com',
 ];
 
 const users = usersList.concat(list);
@@ -39,11 +39,6 @@ export async function seed(knex: Knex): Promise<void> {
         const idNumber = generateFakeSouthAfricanID(idAge, idGender, month, day);
         const birthDate = getDateOfBirthFromID(idNumber);
         const gender = startCase(idGender);
-        const role = email.includes('admin')
-          ? UserRole.Admin
-          : email.includes('staff')
-          ? UserRole.Staff
-          : faker.helpers.enumValue(UserRole);
     
         return {
           id: generateCUID(),
@@ -57,7 +52,6 @@ export async function seed(knex: Knex): Promise<void> {
           idNumber,
           title,
           race,
-          role,
           status: UserStatus.Active,
         };
       };
