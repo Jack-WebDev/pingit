@@ -1,5 +1,5 @@
 {
-    "extends": "@codeforge/ts/base.json",
+    "extends": "@pingit/ts/base.json",
     "compilerOptions": {
         "jsx": "react",
         "baseUrl": ".",

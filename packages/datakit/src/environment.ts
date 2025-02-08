@@ -1,4 +1,4 @@
-import { createLogger } from '@codeforge/logger';
+import { createLogger } from '@pingit/logger';
 
 import assert from 'assert';
 import { Knex } from 'knex';

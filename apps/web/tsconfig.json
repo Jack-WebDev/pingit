@@ -1,5 +1,5 @@
 {
-  "extends": "@codeforge/ts/nextjs.json",
+  "extends": "@pingit/ts/nextjs.json",
   "compilerOptions": {
     "plugins": [
       {

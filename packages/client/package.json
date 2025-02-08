@@ -1,5 +1,5 @@
 {
-  "name": "@codeforge/client",
+  "name": "@pingit/client",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -28,7 +28,7 @@
     "graphql-request": "^7.1.2"
   },
   "devDependencies": {
-    "@codeforge/buildkit": "workspace:*",
+    "@pingit/buildkit": "workspace:*",
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/client-preset": "^4.5.1",
     "@graphql-codegen/introspection": "^4.0.3",

@@ -1,4 +1,4 @@
-import { BadRequestError, BadRequestErrorIssue, ValidationErrorCodes } from '@codeforge/errors';
+import { BadRequestError, BadRequestErrorIssue, ValidationErrorCodes } from '@pingit/errors';
 
 import { z } from 'zod';
 import { CustomIssue, refineMobileNumber } from './refinements';

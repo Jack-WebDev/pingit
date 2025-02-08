@@ -11,12 +11,12 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@codeforge/ui": "workspace:*",
+    "@pingit/ui": "workspace:*",
     "next": "^15.1.0"
   },
   "devDependencies": {
-    "@codeforge/lint": "workspace:*",
-    "@codeforge/ts": "workspace:*",
+    "@pingit/lint": "workspace:*",
+    "@pingit/ts": "workspace:*",
     "@types/node": "^20",
     "typescript": "5.5.4"
   },

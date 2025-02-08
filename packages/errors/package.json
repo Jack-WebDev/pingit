@@ -1,5 +1,5 @@
 {
-  "name": "@codeforge/errors",
+  "name": "@pingit/errors",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -14,7 +14,7 @@
   "author": "Jack WebDev",
   "license": "MIT",
   "devDependencies": {
-    "@codeforge/buildkit": "workspace:*",
-    "@codeforge/ts": "workspace:*"
+    "@pingit/buildkit": "workspace:*",
+    "@pingit/ts": "workspace:*"
   }
 }

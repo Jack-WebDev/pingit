@@ -1,4 +1,4 @@
-import type { Logger } from '@codeforge/logger';
+import type { Logger } from '@pingit/logger';
 
 import type { Knex as KnexTypes } from 'knex';
 import Knex from 'knex';

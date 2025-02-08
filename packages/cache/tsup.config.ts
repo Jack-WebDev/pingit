@@ -1,3 +1,3 @@
-import { options, defineConfig } from '@codeforge/buildkit';
+import { options, defineConfig } from '@pingit/buildkit';
 
 export default defineConfig(options);

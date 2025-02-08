@@ -1,4 +1,4 @@
-import { PromiseOfOptional } from '@codeforge/utils';
+import { PromiseOfOptional } from '@pingit/utils';
 
 export interface Cache<T = string> {
     set(key: string, value: T, expiresIn?: TimeToLive): Promise<void>;

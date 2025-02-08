@@ -72,16 +72,16 @@ importers:
       '@apollo/server':
         specifier: ^4.11.3
         version: 4.11.3(graphql@16.10.0)
-      '@codeforge/cache':
+      '@pingit/cache':
         specifier: workspace:*
         version: link:../../packages/cache
-      '@codeforge/datakit':
+      '@pingit/datakit':
         specifier: workspace:*
         version: link:../../packages/datakit
-      '@codeforge/serverkit':
+      '@pingit/serverkit':
         specifier: workspace:*
         version: link:../../packages/serverkit
-      '@codeforge/utils':
+      '@pingit/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       '@pothos/core':
@@ -181,19 +181,19 @@ importers:
       '@apollo/client':
         specifier: ^3.12.7
         version: 3.12.7(@types/react@19.0.8)(graphql-ws@5.16.2(graphql@16.10.0))(graphql@16.10.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(subscriptions-transport-ws@0.11.0(graphql@16.10.0))
-      '@codeforge/buildkit':
+      '@pingit/buildkit':
         specifier: workspace:*
         version: link:../../packages/buildkit
-      '@codeforge/client':
+      '@pingit/client':
         specifier: workspace:*
         version: link:../../packages/client
-      '@codeforge/emailkit':
+      '@pingit/emailkit':
         specifier: workspace:*
         version: link:../../packages/emailkit
-      '@codeforge/testkit':
+      '@pingit/testkit':
         specifier: workspace:*
         version: link:../../packages/testkit
-      '@codeforge/ts':
+      '@pingit/ts':
         specifier: workspace:*
         version: link:../../packages/ts
       '@swc-node/register':
@@ -232,17 +232,17 @@ importers:
 
   apps/docs:
     dependencies:
-      '@codeforge/ui':
+      '@pingit/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       next:
         specifier: ^15.1.0
         version: 15.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
-      '@codeforge/lint':
+      '@pingit/lint':
         specifier: workspace:*
         version: link:../../packages/lint
-      '@codeforge/ts':
+      '@pingit/ts':
         specifier: workspace:*
         version: link:../../packages/ts
       '@types/node':
@@ -254,20 +254,20 @@ importers:
 
   apps/web:
     dependencies:
-      '@codeforge/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
       '@million/lint':
         specifier: ^1.0.14
         version: 1.0.14(rollup@4.29.1)
+      '@pingit/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       next:
         specifier: ^15.1.0
         version: 15.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
-      '@codeforge/lint':
+      '@pingit/lint':
         specifier: workspace:*
         version: link:../../packages/lint
-      '@codeforge/ts':
+      '@pingit/ts':
         specifier: workspace:*
         version: link:../../packages/ts
       '@types/node':
@@ -292,16 +292,16 @@ importers:
         specifier: ^1.6.0
         version: 1.6.0
     devDependencies:
-      '@codeforge/buildkit':
+      '@pingit/buildkit':
         specifier: workspace:*
         version: link:../buildkit
-      '@codeforge/testkit':
+      '@pingit/testkit':
         specifier: workspace:*
         version: link:../testkit
-      '@codeforge/ts':
+      '@pingit/ts':
         specifier: workspace:*
         version: link:../ts
-      '@codeforge/utils':
+      '@pingit/utils':
         specifier: workspace:*
         version: link:../utils
 
@@ -314,9 +314,6 @@ importers:
         specifier: ^7.1.2
         version: 7.1.2(graphql@16.10.0)
     devDependencies:
-      '@codeforge/buildkit':
-        specifier: workspace:*
-        version: link:../buildkit
       '@graphql-codegen/cli':
         specifier: ^5.0.3
         version: 5.0.3(@babel/core@7.26.7)(@types/node@20.17.6)(graphql@16.10.0)(typescript@5.5.4)
@@ -335,6 +332,9 @@ importers:
       '@graphql-codegen/typescript-resolvers':
         specifier: ^4.4.1
         version: 4.4.1(@babel/core@7.26.7)(graphql@16.10.0)
+      '@pingit/buildkit':
+        specifier: workspace:*
+        version: link:../buildkit
 
   packages/datakit:
     dependencies:
@@ -345,10 +345,10 @@ importers:
         specifier: ^0.2.3
         version: 0.2.3
     devDependencies:
-      '@codeforge/buildkit':
+      '@pingit/buildkit':
         specifier: workspace:*
         version: link:../buildkit
-      '@codeforge/logger':
+      '@pingit/logger':
         specifier: workspace:*
         version: link:../logger
       '@types/cuid':
@@ -388,10 +388,10 @@ importers:
         specifier: ^6.10.0
         version: 6.10.0
     devDependencies:
-      '@codeforge/buildkit':
+      '@pingit/buildkit':
         specifier: workspace:*
         version: link:../buildkit
-      '@codeforge/testkit':
+      '@pingit/testkit':
         specifier: workspace:*
         version: link:../testkit
       '@types/html-to-text':
@@ -403,10 +403,10 @@ importers:
 
   packages/errors:
     devDependencies:
-      '@codeforge/buildkit':
+      '@pingit/buildkit':
         specifier: workspace:*
         version: link:../buildkit
-      '@codeforge/ts':
+      '@pingit/ts':
         specifier: workspace:*
         version: link:../ts
 
@@ -455,19 +455,19 @@ importers:
         specifier: ^11.3.0
         version: 11.3.0
     devDependencies:
-      '@codeforge/buildkit':
+      '@pingit/buildkit':
         specifier: workspace:*
         version: link:../buildkit
-      '@codeforge/lint':
+      '@pingit/lint':
         specifier: workspace:*
         version: link:../lint
 
   packages/serverkit:
     dependencies:
-      '@codeforge/errors':
+      '@pingit/errors':
         specifier: workspace:*
         version: link:../errors
-      '@codeforge/logger':
+      '@pingit/logger':
         specifier: workspace:*
         version: link:../logger
       dotenv:
@@ -480,13 +480,13 @@ importers:
         specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
-      '@codeforge/buildkit':
+      '@pingit/buildkit':
         specifier: workspace:*
         version: link:../buildkit
-      '@codeforge/testkit':
+      '@pingit/testkit':
         specifier: workspace:*
         version: link:../testkit
-      '@codeforge/ts':
+      '@pingit/ts':
         specifier: workspace:*
         version: link:../ts
       '@types/dotenv':
@@ -495,15 +495,15 @@ importers:
 
   packages/testkit:
     dependencies:
-      '@codeforge/logger':
-        specifier: workspace:*
-        version: link:../logger
-      '@codeforge/utils':
-        specifier: workspace:*
-        version: link:../utils
       '@faker-js/faker':
         specifier: ^9.3.0
         version: 9.3.0
+      '@pingit/logger':
+        specifier: workspace:*
+        version: link:../logger
+      '@pingit/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@vitest/coverage-v8':
         specifier: ^3.0.4
         version: 3.0.4(vitest@3.0.4(@types/node@20.17.6)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))
@@ -514,10 +514,10 @@ importers:
         specifier: ^3.0.4
         version: 3.0.4(@types/node@20.17.6)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0)
     devDependencies:
-      '@codeforge/buildkit':
+      '@pingit/buildkit':
         specifier: workspace:*
         version: link:../buildkit
-      '@codeforge/lint':
+      '@pingit/lint':
         specifier: workspace:*
         version: link:../lint
 
@@ -553,10 +553,10 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@4.0.0)
     devDependencies:
-      '@codeforge/lint':
+      '@pingit/lint':
         specifier: workspace:*
         version: link:../lint
-      '@codeforge/ts':
+      '@pingit/ts':
         specifier: workspace:*
         version: link:../ts
       '@turbo/gen':
@@ -578,10 +578,10 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
     devDependencies:
-      '@codeforge/buildkit':
+      '@pingit/buildkit':
         specifier: workspace:*
         version: link:../buildkit
-      '@codeforge/lint':
+      '@pingit/lint':
         specifier: workspace:*
         version: link:../lint
       '@types/lodash.startcase':

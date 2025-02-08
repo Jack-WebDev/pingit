@@ -1,5 +1,5 @@
-import { createSeed } from '@codeforge/datakit';
-import { createObjectMap } from '@codeforge/utils';
+import { createSeed } from '@pingit/datakit';
+import { createObjectMap } from '@pingit/utils';
 
 import { Type } from '~/type/type';
 

@@ -1,4 +1,4 @@
-import { baseConfig, mergeConfig } from '@codeforge/testkit';
+import { baseConfig, mergeConfig } from '@pingit/testkit';
 
 export default mergeConfig(baseConfig, {
   test: {

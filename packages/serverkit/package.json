@@ -1,5 +1,5 @@
 {
-  "name": "@codeforge/serverkit",
+  "name": "@pingit/serverkit",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -11,14 +11,14 @@
     "build": "tsup"
   },
   "devDependencies": {
-    "@codeforge/buildkit": "workspace:*",
-    "@codeforge/testkit": "workspace:*",
-    "@codeforge/ts": "workspace:*",
+    "@pingit/buildkit": "workspace:*",
+    "@pingit/testkit": "workspace:*",
+    "@pingit/ts": "workspace:*",
     "@types/dotenv": "~8.2.0"
   },
   "dependencies": {
-    "@codeforge/logger": "workspace:*",
-    "@codeforge/errors": "workspace:*",
+    "@pingit/logger": "workspace:*",
+    "@pingit/errors": "workspace:*",
     "dotenv": "~16.3.1",
     "env-var": "~7.3.1",
     "zod": "^3.24.1"

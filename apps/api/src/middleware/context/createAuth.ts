@@ -1,4 +1,4 @@
-import { InternalError } from '@codeforge/serverkit';
+import { InternalError } from '@pingit/serverkit';
 
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { AuthContext } from '~/auth';

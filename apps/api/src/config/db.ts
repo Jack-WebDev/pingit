@@ -1,4 +1,4 @@
-import { env } from '@codeforge/serverkit';
+import { env } from '@pingit/serverkit';
 
 export const databaseConfig = {
   url: env.get('DATABASE_URL').required().asString(),

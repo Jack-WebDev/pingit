@@ -1,5 +1,5 @@
-import { BadRequestError, ValidationErrorCodes } from '@codeforge/serverkit';
-import type { BadRequestErrorIssue } from '@codeforge/serverkit';
+import { BadRequestError, ValidationErrorCodes } from '@pingit/serverkit';
+import type { BadRequestErrorIssue } from '@pingit/serverkit';
 
 import { z } from 'zod';
 import { extensions } from '~/document/contentTypes';

@@ -1,4 +1,4 @@
-import { config } from "@codeforge/lint/react-internal";
+import { config } from "@pingit/lint/react-internal";
 
 /** @type {import("eslint").Linter.Config} */
 export default config;

@@ -1,5 +1,5 @@
 {
-  "name": "@codeforge/cache",
+  "name": "@pingit/cache",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -24,10 +24,10 @@
     "build": "tsup"
   },
   "devDependencies": {
-    "@codeforge/buildkit": "workspace:*",
-    "@codeforge/testkit": "workspace:*",
-    "@codeforge/ts": "workspace:*",
-    "@codeforge/utils": "workspace:*"
+    "@pingit/buildkit": "workspace:*",
+    "@pingit/testkit": "workspace:*",
+    "@pingit/ts": "workspace:*",
+    "@pingit/utils": "workspace:*"
   },
   "keywords": [],
   "author": "Jack WebDev",

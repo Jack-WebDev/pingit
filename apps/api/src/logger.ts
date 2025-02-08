@@ -1,4 +1,4 @@
-import { createLogger, Logger as BaseLogger } from '@codeforge/serverkit';
+import { createLogger, Logger as BaseLogger } from '@pingit/serverkit';
 
 import { config } from './config';
 

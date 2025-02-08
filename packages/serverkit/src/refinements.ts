@@ -1,4 +1,4 @@
-import { ValidationErrorCodes } from '@codeforge/errors';
+import { ValidationErrorCodes } from '@pingit/errors';
 
 import { z } from 'zod';
 

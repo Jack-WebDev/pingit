@@ -1,4 +1,4 @@
-import { BaseModel } from '@codeforge/datakit';
+import { BaseModel } from '@pingit/datakit';
 
 export enum TypeIdentifier {
   User = 'User',

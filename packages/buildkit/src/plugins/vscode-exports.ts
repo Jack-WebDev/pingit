@@ -4,7 +4,7 @@ import * as path from 'node:path';
 
 export function vscodeExportPlugin(): Plugin {
   return {
-    name: '@codeforge/buildkit:vscode-exports',
+    name: '@pingit/buildkit:vscode-exports',
     async setup() {
       const rootDir = process.cwd();
       const pkgJson = JSON.parse(await readFile(path.join(rootDir, 'package.json'), 'utf-8'));

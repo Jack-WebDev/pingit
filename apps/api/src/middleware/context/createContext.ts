@@ -1,5 +1,5 @@
-import { Cache } from '@codeforge/cache';
-import { createDatabaseClient } from '@codeforge/datakit';
+import { Cache } from '@pingit/cache';
+import { createDatabaseClient } from '@pingit/datakit';
 
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { Knex } from 'knex';

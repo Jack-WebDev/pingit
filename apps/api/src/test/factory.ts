@@ -1,4 +1,4 @@
-import { Factory as BaseFactory, createFactory as createBaseFactory } from '@codeforge/datakit';
+import { Factory as BaseFactory, createFactory as createBaseFactory } from '@pingit/datakit';
 
 // import { userBuilder } from '~/account/builder';
 // import { addressBuilder } from '~/address/builder';

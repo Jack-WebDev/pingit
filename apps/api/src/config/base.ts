@@ -1,4 +1,4 @@
-import { initConfig, env } from '@codeforge/serverkit';
+import { initConfig, env } from '@pingit/serverkit';
 
 const cwd = process.cwd();
 const conf = initConfig(cwd);

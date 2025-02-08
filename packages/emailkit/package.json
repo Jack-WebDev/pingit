@@ -1,5 +1,5 @@
 {
-  "name": "@codeforge/emailkit",
+  "name": "@pingit/emailkit",
   "private": true,
   "version": "1.0.0",
   "description": "",
@@ -31,8 +31,8 @@
   "devDependencies": {
     "@types/html-to-text": "^9.0.4",
     "@types/nodemailer": "^6.4.17",
-    "@codeforge/buildkit": "workspace:*",
-    "@codeforge/testkit": "workspace:*"
+    "@pingit/buildkit": "workspace:*",
+    "@pingit/testkit": "workspace:*"
   },
   "peerDependencies": {
     "react": "^19.0.0",

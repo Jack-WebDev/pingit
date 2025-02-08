@@ -1,4 +1,4 @@
-import { BaseError, isError, isUserError } from '@codeforge/serverkit';
+import { BaseError, isError, isUserError } from '@pingit/serverkit';
 
 import { NextFunction, Response, Request } from 'express';
 import { logger } from '~/logger';

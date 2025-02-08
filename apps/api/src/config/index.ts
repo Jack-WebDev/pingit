@@ -1,4 +1,4 @@
-import { env } from '@codeforge/serverkit';
+import { env } from '@pingit/serverkit';
 
 import { baseConfig } from './base';
 import { databaseConfig } from './db';

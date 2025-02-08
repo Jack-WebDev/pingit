@@ -1,4 +1,4 @@
-import { BaseModel } from '@codeforge/datakit';
+import { BaseModel } from '@pingit/datakit';
 
 import { User } from '~/account';
 import { TypeIdentifier } from '~/type';

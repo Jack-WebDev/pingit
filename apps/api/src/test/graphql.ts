@@ -1,4 +1,4 @@
-import { ExpiresInSeconds } from '@codeforge/cache';
+import { ExpiresInSeconds } from '@pingit/cache';
 
 import { gql as baseGql } from '@apollo/client';
 import { has } from 'lodash';

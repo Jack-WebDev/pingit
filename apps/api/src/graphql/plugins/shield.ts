@@ -1,4 +1,4 @@
-import { ForbiddenError } from '@codeforge/serverkit';
+import { ForbiddenError } from '@pingit/serverkit';
 
 import SchemaBuilder, {
   BasePlugin,

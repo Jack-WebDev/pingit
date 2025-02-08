@@ -1,4 +1,4 @@
-import { createDataEnvironmentProvider, destroyDataEnv } from '@codeforge/datakit';
+import { createDataEnvironmentProvider, destroyDataEnv } from '@pingit/datakit';
 
 import assert from 'assert';
 import crypto from 'node:crypto';

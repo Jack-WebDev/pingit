@@ -1,5 +1,5 @@
-import { createDatabase, dropDatabase, createDatabaseClient } from '@codeforge/datakit';
-import { createLogger } from '@codeforge/serverkit';
+import { createDatabase, dropDatabase, createDatabaseClient } from '@pingit/datakit';
+import { createLogger } from '@pingit/serverkit';
 
 import { resolve } from 'path';
 import { config } from '~/config';

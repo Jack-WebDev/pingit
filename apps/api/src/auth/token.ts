@@ -1,6 +1,6 @@
 
 
-import { TimeToLive } from '@codeforge/cache';
+import { TimeToLive } from '@pingit/cache';
 import * as crypto from 'node:crypto';
 import { Context } from '~/context';
 

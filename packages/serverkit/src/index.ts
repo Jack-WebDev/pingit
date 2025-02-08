@@ -1,7 +1,7 @@
 export { initConfig } from './config';
-export { createLogger } from '@codeforge/logger';
+export { createLogger } from '@pingit/logger';
 
-export type { Logger, LoggerLevel, LoggerOptions } from '@codeforge/logger';
+export type { Logger, LoggerLevel, LoggerOptions } from '@pingit/logger';
 export { Validator } from './validator';
 
 export {
@@ -16,9 +16,9 @@ export {
   ValidationErrorCodes,
   isError,
   isUserError,
-} from '@codeforge/errors';
+} from '@pingit/errors';
 
-export type { BadRequestErrorIssue } from '@codeforge/errors';
+export type { BadRequestErrorIssue } from '@pingit/errors';
 
 export * from './env';
 

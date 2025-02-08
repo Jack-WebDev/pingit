@@ -1,5 +1,5 @@
-import { faker } from '@codeforge/testkit';
-import { generateFakeSouthAfricanID, getDateOfBirthFromID, generateCUID } from '@codeforge/utils';
+import { faker } from '@pingit/testkit';
+import { generateFakeSouthAfricanID, getDateOfBirthFromID, generateCUID } from '@pingit/utils';
 
 import * as argon from 'argon2';
 import { Knex } from 'knex';

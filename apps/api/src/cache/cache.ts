@@ -1,6 +1,6 @@
-import { Cache as BaseCache, TimeToLive } from '@codeforge/cache';
-import { BaseModel } from '@codeforge/datakit';
-import { PromiseOfOptional } from '@codeforge/utils';
+import { Cache as BaseCache, TimeToLive } from '@pingit/cache';
+import { BaseModel } from '@pingit/datakit';
+import { PromiseOfOptional } from '@pingit/utils';
 
 import { Context } from '~/context';
 

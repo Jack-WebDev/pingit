@@ -1,5 +1,5 @@
-import { createDatabaseContext, destroyDatabaseContext } from '@codeforge/datakit';
-import { createEmailClient } from '@codeforge/emailkit';
+import { createDatabaseContext, destroyDatabaseContext } from '@pingit/datakit';
+import { createEmailClient } from '@pingit/emailkit';
 
 import assert from 'assert';
 import { config } from '~/config';

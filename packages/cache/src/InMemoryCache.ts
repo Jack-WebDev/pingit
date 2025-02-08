@@ -1,4 +1,4 @@
-import { PromiseOfOptional } from '@codeforge/utils';
+import { PromiseOfOptional } from '@pingit/utils';
 
 import { Cache } from '~/interface';
 

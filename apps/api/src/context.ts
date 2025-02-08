@@ -1,7 +1,7 @@
-import { Cache } from '@codeforge/cache';
-import { BaseModel } from '@codeforge/datakit';
-import { EmailClient } from '@codeforge/emailkit';
-import { InternalError } from '@codeforge/serverkit';
+import { Cache } from '@pingit/cache';
+import { BaseModel } from '@pingit/datakit';
+import { EmailClient } from '@pingit/emailkit';
+import { InternalError } from '@pingit/serverkit';
 
 import { Knex } from 'knex';
 import crypto from 'node:crypto';

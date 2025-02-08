@@ -1,4 +1,4 @@
-import { BaseModel } from '@codeforge/datakit';
+import { BaseModel } from '@pingit/datakit';
 import Objection from 'objection';
 import { Context } from '~/context';
 import { TypeIdentifier } from '~/type';

@@ -1,5 +1,5 @@
 {
-  "name": "@codeforge/utils",
+  "name": "@pingit/utils",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -26,8 +26,8 @@
     "lodash.startcase": "^4.4.0"
   },
   "devDependencies": {
-    "@codeforge/buildkit": "workspace:*",
-    "@codeforge/lint": "workspace:*",
+    "@pingit/buildkit": "workspace:*",
+    "@pingit/lint": "workspace:*",
     "@types/lodash.startcase": "^4.4.9"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@codeforge/buildkit",
+  "name": "@pingit/buildkit",
   "private": true,
   "version": "1.0.0",
   "description": "A versatile build utility for JavaScript and TypeScript projects, providing seamless support for ESM and CJS, TypeScript type definitions, and modern bundling workflows.",

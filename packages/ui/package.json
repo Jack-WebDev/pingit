@@ -1,5 +1,5 @@
 {
-  "name": "@codeforge/ui",
+  "name": "@pingit/ui",
   "version": "1.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -16,8 +16,8 @@
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
-    "@codeforge/lint": "workspace:*",
-    "@codeforge/ts": "workspace:*",
+    "@pingit/lint": "workspace:*",
+    "@pingit/ts": "workspace:*",
     "@turbo/gen": "^1.12.4",
     "@types/node": "^20.11.24",
     "typescript": "5.5.4"

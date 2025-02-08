@@ -1,5 +1,5 @@
 {
-  "name": "@codeforge/testkit",
+  "name": "@pingit/testkit",
   "private": true,
   "version": "1.0.0",
   "description": "",
@@ -21,15 +21,15 @@
   "author": "Jack WebDev",
   "license": "MIT",
   "dependencies": {
-    "@codeforge/logger": "workspace:*",
-    "@codeforge/utils": "workspace:*",
+    "@pingit/logger": "workspace:*",
+    "@pingit/utils": "workspace:*",
     "@faker-js/faker": "^9.3.0",
     "@vitest/coverage-v8": "^3.0.4",
     "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^3.0.4"
   },
   "devDependencies": {
-    "@codeforge/buildkit": "workspace:*",
-    "@codeforge/lint": "workspace:*"
+    "@pingit/buildkit": "workspace:*",
+    "@pingit/lint": "workspace:*"
   }
 }

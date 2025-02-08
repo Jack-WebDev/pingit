@@ -1,4 +1,4 @@
-# Turborepo starter (Codeforge)
+# Turborepo starter (pingit)
 
 ## What's inside?
 
@@ -8,9 +8,9 @@ This Turborepo includes the following packages/apps:
 
 - `docs`: a [Next.js](https://nextjs.org/) app
 - `web`: another [Next.js](https://nextjs.org/) app
-- `@codeforge/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@codeforge/lint`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@codeforge/ts`: `tsconfig.json`s used throughout the monorepo
+- `@pingit/ui`: a stub React component library shared by both `web` and `docs` applications
+- `@pingit/lint`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `@pingit/ts`: `tsconfig.json`s used throughout the monorepo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 

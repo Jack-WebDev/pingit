@@ -1,4 +1,4 @@
-import { NotFoundError } from '@codeforge/serverkit';
+import { NotFoundError } from '@pingit/serverkit';
 
 import { Knex } from 'knex';
 import { camelCase, uniq } from 'lodash';
