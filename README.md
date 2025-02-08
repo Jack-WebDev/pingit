@@ -1,41 +1,46 @@
-# Turborepo starter (pingit)
+# PingIt - A Better Twitter
 
-## What's inside?
+## 🚀 About PingIt
 
-This Turborepo includes the following packages/apps:
+PingIt is a modern, fast, and scalable microblogging platform inspired by Twitter. Built with cutting-edge technologies, PingIt allows users to share their thoughts, interact with others, and stay updated in real time.
 
-### Apps and Packages
+## 🛠 Tech Stack
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@pingit/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@pingit/lint`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@pingit/ts`: `tsconfig.json`s used throughout the monorepo
+* **Monorepo:** Turbo Repo
+* **Frontend:** Next.js 15
+* **Backend:** Express.js, GraphQL, Pothos
+* **Database:** PostgreSQL (pg), Objection.js, Knex
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## 🌟 Features
 
-### Utilities
+✅ **User Authentication** (OAuth & Email Login)
+✅ **Tweeting System** (Post, Like, Retweet, Delete, Edit)
+✅ **Threaded Conversations**
+✅ **Follow/Unfollow Users**
+✅ **Personalized Feed & Explore Page**
+✅ **Real-time Notifications**
+✅ **Search Tweets & Users**
+✅ **Moderation Tools (Report, Block, Mute)**
+✅ **Dark Mode Support**
+✅ **Live GraphQL Subscriptions**
 
-This Turborepo has some additional tools already setup for you:
+## 🏗 Roadmap
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+* ✅ **MVP Release** (Basic tweet functionality, user authentication)
+* ⏳ **Phase 2** (Real-time updates, notifications, trends)
+* ⏳ **Phase 3** (Monetization, AI-powered recommendations)
 
-### Build
+## 📜 License
 
-To build all apps and packages, run the following command:
+This project is open-source and available under the MIT License.
 
-```
-cd my-turborepo
-pnpm build
-```
+## 👥 Contributing
 
-### Develop
+1. Fork the repository
+2. Create a new branch (`feature-branch`)
+3. Commit your changes
+4. Push the branch and create a PR
 
-To develop all apps and packages, run the following command:
+---
 
-```
-cd my-turborepo
-pnpm dev
-```
+Happy pinging with **PingIt**! 🚀
