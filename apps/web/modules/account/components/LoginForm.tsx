@@ -152,7 +152,7 @@ export default function LoginForm() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => router.back()}
+                onClick={() => router.replace("/")}
                 className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-700/50 text-gray-300 hover:bg-slate-700 transition-colors"
                 type="button"
               >
