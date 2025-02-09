@@ -5,17 +5,17 @@ export type { Logger, LoggerLevel, LoggerOptions } from '@pingit/logger';
 export { Validator } from './validator';
 
 export {
-  BadRequestError,
-  ConflictError,
-  NotFoundError,
-  InternalError,
-  ForbiddenError,
-  UnauthorizedError,
-  BaseError,
-  ErrorBag,
-  ValidationErrorCodes,
-  isError,
-  isUserError,
+    BadRequestError,
+    ConflictError,
+    NotFoundError,
+    InternalError,
+    ForbiddenError,
+    UnauthorizedError,
+    BaseError,
+    ErrorBag,
+    ValidationErrorCodes,
+    isError,
+    isUserError,
 } from '@pingit/errors';
 
 export type { BadRequestErrorIssue } from '@pingit/errors';

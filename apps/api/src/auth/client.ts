@@ -1,22 +1,21 @@
 import { BaseModel } from '@pingit/datakit';
 
 export enum ClientScope {
-  auth = 'auth',
+    auth = 'auth',
 }
 
 export class Client extends BaseModel {
-  static tableName = 'client';
-  id: string = '';
-  secret: string = '';
-  scope: string[] = [];
-  name: string = '';
+    static tableName = 'client';
+    id: string = '';
+    secret: string = '';
+    scope: string[] = [];
+    name: string = '';
 
-
-  // constructor(id: string, secret: string, scope: string[], name: string) {
-  //   super();
-  //   this.id = id;
-  //   this.secret = secret;
-  //   this.scope = scope;
-  //   this.name = name;
-  // }
+    // constructor(id: string, secret: string, scope: string[], name: string) {
+    //   super();
+    //   this.id = id;
+    //   this.secret = secret;
+    //   this.scope = scope;
+    //   this.name = name;
+    // }
 }

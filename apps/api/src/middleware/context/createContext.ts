@@ -1,9 +1,3 @@
-import { Cache } from '@pingit/cache';
-import { createDatabaseClient } from '@pingit/datakit';
-
-import { NextFunction, Request, RequestHandler, Response } from 'express';
-import { Knex } from 'knex';
-import knexfile from 'knexfile';
 // import { DatabaseCache } from '~/cache/cache';
 import { config } from '~/config';
 import { Context } from '~/context';
@@ -11,8 +5,14 @@ import { logger } from '~/logger';
 // import { mailer } from '~/mailer';
 import { contexts } from '~/test/globals';
 
+import { Cache } from '@pingit/cache';
+import { createDatabaseClient } from '@pingit/datakit';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { Knex } from 'knex';
+import knexfile from 'knexfile';
+
 export enum Headers {
-  CONTEXT_ID = 'x-num-test-context-id',
+    CONTEXT_ID = 'x-num-test-context-id',
 }
 
 /**
@@ -20,48 +20,56 @@ export enum Headers {
  * environment. This enables sharing a transaction across tests.
  */
 function createTestContextMiddleware(): RequestHandler {
-  return async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
-    const contextId = req.headers[Headers.CONTEXT_ID] as string;
+    return async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ): Promise<void> => {
+        const contextId = req.headers[Headers.CONTEXT_ID] as string;
 
-    const sharedCtx = contexts.get(contextId);
-    if (!sharedCtx) {
-      throw new Error(`Failed to accquire context "${contextId}".`);
-    }
+        const sharedCtx = contexts.get(contextId);
+        if (!sharedCtx) {
+            throw new Error(`Failed to accquire context "${contextId}".`);
+        }
 
-    // if (!sharedCtx.db || !sharedCtx.cache) {
-    //   throw new Error(`Missing db/cache prop from shared context.`);
-    // }
+        // if (!sharedCtx.db || !sharedCtx.cache) {
+        //   throw new Error(`Missing db/cache prop from shared context.`);
+        // }
 
-    // const ctx = Context.init(sharedCtx as Context);
+        // const ctx = Context.init(sharedCtx as Context);
 
-    // req.ctx = ctx;
-    return next();
-  };
+        // req.ctx = ctx;
+        return next();
+    };
 }
 
 function baseCreateContextMiddleware(): RequestHandler {
-  let db: Knex | null = null;
-  let cache: Cache | null = null;
+    let db: Knex | null = null;
+    let cache: Cache | null = null;
 
-  return async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
-    if (!db) {
-      db = createDatabaseClient(knexfile, logger);
-    }
-    // if (!cache) {
-    //   cache = new DatabaseCache(db);
-    // }
+    return async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ): Promise<void> => {
+        if (!db) {
+            db = createDatabaseClient(knexfile, logger);
+        }
+        // if (!cache) {
+        //   cache = new DatabaseCache(db);
+        // }
 
-    // const ctx = await Context.init({ cache, db, mailer, storageClient });
+        // const ctx = await Context.init({ cache, db, mailer, storageClient });
 
-    // req.ctx = ctx;
-    return next();
-  };
+        // req.ctx = ctx;
+        return next();
+    };
 }
 
 export function createContextMiddleware(): RequestHandler {
-  if (config.env === 'test') {
-    return createTestContextMiddleware();
-  }
+    if (config.env === 'test') {
+        return createTestContextMiddleware();
+    }
 
-  return baseCreateContextMiddleware();
+    return baseCreateContextMiddleware();
 }

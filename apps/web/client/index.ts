@@ -1,1 +1,1 @@
-export {apiClient} from './server-proxy'
+export { apiClient } from './server-proxy';

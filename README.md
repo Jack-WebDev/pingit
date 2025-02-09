@@ -6,10 +6,10 @@ PingIt is a modern, fast, and scalable microblogging platform inspired by Twitte
 
 ## 🛠 Tech Stack
 
-* **Monorepo:** Turbo Repo
-* **Frontend:** Next.js 15
-* **Backend:** Express.js, GraphQL, Pothos
-* **Database:** PostgreSQL (pg), Objection.js, Knex
+- **Monorepo:** Turbo Repo
+- **Frontend:** Next.js 15
+- **Backend:** Express.js, GraphQL, Pothos
+- **Database:** PostgreSQL (pg), Objection.js, Knex
 
 ## 🌟 Features
 
@@ -26,9 +26,9 @@ PingIt is a modern, fast, and scalable microblogging platform inspired by Twitte
 
 ## 🏗 Roadmap
 
-* ✅ **MVP Release** (Basic tweet functionality, user authentication)
-* ⏳ **Phase 2** (Real-time updates, notifications, trends)
-* ⏳ **Phase 3** (Monetization, AI-powered recommendations)
+- ✅ **MVP Release** (Basic tweet functionality, user authentication)
+- ⏳ **Phase 2** (Real-time updates, notifications, trends)
+- ⏳ **Phase 3** (Monetization, AI-powered recommendations)
 
 ## 📜 License
 

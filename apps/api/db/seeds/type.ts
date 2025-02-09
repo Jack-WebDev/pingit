@@ -1,9 +1,10 @@
-import { Knex } from "knex";
-import { types } from "~/type/seeds";
+import { types } from '~/type/seeds';
+
+import { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
-    await knex("type").del();
+    await knex('type').del();
 
     // Inserts seed entries
     await knex('type').insert(types).onConflict('identifier').ignore();

@@ -1,13 +1,13 @@
-import { createLogger } from '@pingit/logger';
-
-import assert from 'assert';
-import { Knex } from 'knex';
-import cuid from 'cuid';
 import { createDatabaseClient } from '~/db/create';
 
+import { createLogger } from '@pingit/logger';
+import assert from 'assert';
+import cuid from 'cuid';
+import { Knex } from 'knex';
+
 export interface Environment {
-  db?: Knex;
-  id: string;
+    db?: Knex;
+    id: string;
 }
 
 /**
@@ -15,17 +15,21 @@ export interface Environment {
  * connection).
  */
 export async function createDataEnvironmentProvider(knexConfig: Knex.Config) {
-  const logger = createLogger({ name: 'datakit', pretty: true, level: 'error' });
-  return async (options: CreateEnvConfig): Promise<Environment> => {
-    const config = Object.assign({ db: true }, options);
-    const env: Partial<Environment> = { id: cuid() };
+    const logger = createLogger({
+        name: 'datakit',
+        pretty: true,
+        level: 'error',
+    });
+    return async (options: CreateEnvConfig): Promise<Environment> => {
+        const config = Object.assign({ db: true }, options);
+        const env: Partial<Environment> = { id: cuid() };
 
-    if (config.db) {
-      env.db = createDatabaseClient(knexConfig, logger);
-    }
+        if (config.db) {
+            env.db = createDatabaseClient(knexConfig, logger);
+        }
 
-    return env as Environment;
-  };
+        return env as Environment;
+    };
 }
 
 /**
@@ -33,14 +37,14 @@ export async function createDataEnvironmentProvider(knexConfig: Knex.Config) {
  * database or cache).
  */
 export async function destroyDataEnv(env: Environment): Promise<void> {
-  assert.ok(env, 'Cannot destroy an invalid environment.');
+    assert.ok(env, 'Cannot destroy an invalid environment.');
 
-  if (env.db) {
-    await env.db.destroy();
-  }
+    if (env.db) {
+        await env.db.destroy();
+    }
 }
 
 interface CreateEnvConfig {
-  db?: boolean;
-  cache?: boolean;
+    db?: boolean;
+    cache?: boolean;
 }

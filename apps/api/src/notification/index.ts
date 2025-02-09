@@ -1,1 +1,5 @@
-export {NotificationStatus, NotificationCategory, Notification} from "./notification"
+export {
+    NotificationStatus,
+    NotificationCategory,
+    Notification,
+} from './notification';

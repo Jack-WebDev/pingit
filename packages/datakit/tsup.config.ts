@@ -1,6 +1,11 @@
-import { options, defineConfig } from '@pingit/buildkit';
+import { defineConfig, options } from '@pingit/buildkit';
 
 export default defineConfig({
-  ...options,
-  external: options.external.concat(['pg', 'knex', 'objection', '@pingit/logger']),
+    ...options,
+    external: options.external.concat([
+        'pg',
+        'knex',
+        'objection',
+        '@pingit/logger',
+    ]),
 });

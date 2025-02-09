@@ -9,27 +9,27 @@ export const extensions = [
     '.ppt',
     '.pptx',
     '.txt',
-  
+
     '.csv',
-  
+
     '.msg',
-  
+
     '.zip',
-  
+
     '.jpg',
     '.jpeg',
     '.png',
     '.tif',
     '.tiff',
-  
+
     '.avi',
     '.m4v',
     '.mp4',
-  ] as const;
-  /**
-   * This is the computed content types for the extensions above
-   */
-  export const contentTypes = [
+] as const;
+/**
+ * This is the computed content types for the extensions above
+ */
+export const contentTypes = [
     'application/msword',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'application/pdf',
@@ -49,8 +49,7 @@ export const extensions = [
     'video/x-msvideo',
     'video/x-m4v',
     'video/mp4',
-  ] as const;
-  
-  export type Extension = (typeof extensions)[number];
-  export type ContentType = (typeof contentTypes)[number];
-  
+] as const;
+
+export type Extension = (typeof extensions)[number];
+export type ContentType = (typeof contentTypes)[number];
