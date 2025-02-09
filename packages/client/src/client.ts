@@ -3,17 +3,17 @@ import { cookies as nextCookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export type Options = {
-    baseURL: string;
-    clientId: string;
-    secret: string;
-  }
-  
+  baseURL: string;
+  clientId: string;
+  secret: string;
+}
+
 
 export class ApiClient {
   public baseURL: string;
   private readonly clientId: string;
   private readonly secret: string;
-  constructor(options: Options,private readonly cookies: typeof nextCookies,
+  constructor(options: Options, private readonly cookies: typeof nextCookies,
   ) {
     Object.assign(this, options);
     this.baseURL = options.baseURL;
@@ -38,18 +38,18 @@ export class ApiClient {
   }
 
   private async getAuthClient() {
-    const cookies = await this.cookies(); 
-    const token = cookies.get('token'); 
-  
+    const cookies = await this.cookies();
+    const token = cookies.get('token');
+
     if (!token) {
-      redirect('/'); 
+      redirect('/');
     }
-  
+
     const header = `Bearer ${token.value}`;
-  
-    return this.getClient(header); 
+
+    return this.getClient(header);
   }
-  
+
 
 
 }

@@ -4,7 +4,9 @@ on:
   push:
     branches: ["main"]
   pull_request:
-    branches: ["test, dev"]
+    branches: 
+      - test
+      - dev
 
 jobs:
   build-lint-test:
