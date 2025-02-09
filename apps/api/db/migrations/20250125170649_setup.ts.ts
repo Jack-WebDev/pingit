@@ -1,8 +1,8 @@
 import { Knex } from 'knex';
 
 export async function up(knex: Knex) {
-  return Promise.all([
-    knex.schema.raw(`
+    return Promise.all([
+        knex.schema.raw(`
       CREATE EXTENSION IF NOT EXISTS "citext";
       CREATE EXTENSION IF NOT EXISTS "pg_trgm";
       CREATE EXTENSION IF NOT EXISTS "fuzzystrmatch";
@@ -11,9 +11,9 @@ export async function up(knex: Knex) {
       CREATE EXTENSION IF NOT EXISTS "btree_gin";
 
     `),
-  ]);
+    ]);
 }
 
 export async function down() {
-  return Promise.all([]);
+    return Promise.all([]);
 }

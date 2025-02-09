@@ -1,19 +1,19 @@
-import { PromiseOfOptional } from '@pingit/utils';
-
 import { Cache } from '~/interface';
 
+import { PromiseOfOptional } from '@pingit/utils';
+
 export class InMemoryCache implements Cache {
-  private db: Record<string, string | undefined> = {};
-  async set(key: string, value: string): Promise<void> {
-    this.db[key] = value;
-  }
-  async get(key: string): PromiseOfOptional<string> {
-    return this.db[key];
-  }
-  async remove(key: string): Promise<void> {
-    delete this.db[key];
-  }
-  async clear(): Promise<void> {
-    this.db = {};
-  }
+    private db: Record<string, string | undefined> = {};
+    async set(key: string, value: string): Promise<void> {
+        this.db[key] = value;
+    }
+    async get(key: string): PromiseOfOptional<string> {
+        return this.db[key];
+    }
+    async remove(key: string): Promise<void> {
+        delete this.db[key];
+    }
+    async clear(): Promise<void> {
+        this.db = {};
+    }
 }

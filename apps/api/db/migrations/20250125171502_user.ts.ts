@@ -16,10 +16,9 @@ export async function up(knex: Knex): Promise<void> {
         t.string('password').nullable();
         t.string('status').notNullable().defaultTo('Active');
         t.timestamps(true, true);
-      });
-      
+    });
 
-  await knex.raw(`
+    await knex.raw(`
     ALTER TABLE "user"
     ADD COLUMN search tsvector GENERATED ALWAYS AS (
       setweight(to_tsvector('simple', coalesce(name, '')), 'A') ||
@@ -29,17 +28,16 @@ export async function up(knex: Knex): Promise<void> {
     ) STORED;
   `);
 
-  await knex.raw(`
+    await knex.raw(`
     CREATE INDEX user_search_idx ON "user" USING GIN(search);
   `);
 }
 
 export async function down(knex: Knex): Promise<void> {
-
-  // drop the index
-  await knex.raw(`
+    // drop the index
+    await knex.raw(`
   DROP INDEX IF EXISTS user_search_idx;
   `);
 
-  await knex.schema.dropTable('user');
+    await knex.schema.dropTable('user');
 }

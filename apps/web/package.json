@@ -11,16 +11,17 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@pingit/ui": "workspace:*",
+    "@million/lint": "^1.0.14",
     "@pingit/client": "workspace:*",
     "@pingit/serverkit": "workspace:*",
+    "@pingit/ui": "workspace:*",
     "@pingit/utils": "workspace:*",
-    "@million/lint": "^1.0.14",
+    "framer-motion": "^12.4.1",
     "next": "^15.1.0"
   },
   "devDependencies": {
-    "@pingit/ts": "workspace:*",
     "@pingit/lint": "workspace:*",
+    "@pingit/ts": "workspace:*",
     "@types/node": "^20",
     "typescript": "5.5.4"
   },

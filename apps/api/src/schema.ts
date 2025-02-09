@@ -1,5 +1,4 @@
 import { builder } from '~/graphql/builder';
-
 // import '~/auth/graphql';
 // import '~/graphql/scalars';
 // import '~/documents/graphql';
@@ -23,6 +22,6 @@ import { builder } from '~/graphql/builder';
 // import '~/employee/graphql';
 // import '~/data-source/graphql';
 // import '~/type/graphql';
-
+import '~/hello/graphql';
 
 export const schema = builder.toSchema({});

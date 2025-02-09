@@ -1,56 +1,73 @@
+import { isActiveUser } from '~/account/shield';
 import { builder } from '~/graphql/builder';
 
 import { ObjectRef } from '@pothos/core';
-import Objection, { Model } from 'objection';
-import { isActiveUser } from '~/account/shield';
 import { allow } from 'graphql-shield';
+import Objection, { Model } from 'objection';
 
 export type SearchEntity<T> = {
-  items: T[];
-  total: number;
-  hasNext: boolean;
+    items: T[];
+    total: number;
+    hasNext: boolean;
 };
 
 export const createPayload = <T>(name: string, type: ObjectRef<T, T>) => {
-  const PayloadSchema = builder.objectRef<SearchEntity<T>>(name);
-  PayloadSchema.implement({
-    shield: isActiveUser,
-    fields: (t) => ({
-      items: t.expose('items', { type: [type], description: 'List of entity' }),
-      total: t.exposeInt('total', { description: 'Total number of objects' }),
-      hasNext: t.exposeBoolean('hasNext', { description: 'Whether there are more users' }),
-    }),
-  });
+    const PayloadSchema = builder.objectRef<SearchEntity<T>>(name);
+    PayloadSchema.implement({
+        shield: isActiveUser,
+        fields: (t) => ({
+            items: t.expose('items', {
+                type: [type],
+                description: 'List of entity',
+            }),
+            total: t.exposeInt('total', {
+                description: 'Total number of objects',
+            }),
+            hasNext: t.exposeBoolean('hasNext', {
+                description: 'Whether there are more users',
+            }),
+        }),
+    });
 
-  return PayloadSchema;
+    return PayloadSchema;
 };
-export const createBasicAuthPayload = <T>(name: string, type: ObjectRef<T, T>) => {
-  const PayloadSchema = builder.objectRef<SearchEntity<T>>(name);
-  PayloadSchema.implement({
-    shield: allow,
-    fields: (t) => ({
-      items: t.expose('items', { type: [type], description: 'List of entity' }),
-      total: t.exposeInt('total', { description: 'Total number of objects' }),
-      hasNext: t.exposeBoolean('hasNext', { description: 'Whether there are more users' }),
-    }),
-  });
+export const createBasicAuthPayload = <T>(
+    name: string,
+    type: ObjectRef<T, T>
+) => {
+    const PayloadSchema = builder.objectRef<SearchEntity<T>>(name);
+    PayloadSchema.implement({
+        shield: allow,
+        fields: (t) => ({
+            items: t.expose('items', {
+                type: [type],
+                description: 'List of entity',
+            }),
+            total: t.exposeInt('total', {
+                description: 'Total number of objects',
+            }),
+            hasNext: t.exposeBoolean('hasNext', {
+                description: 'Whether there are more users',
+            }),
+        }),
+    });
 
-  return PayloadSchema;
+    return PayloadSchema;
 };
 
 interface PageInfo {
-  page?: number | null;
-  limit?: number | null;
+    page?: number | null;
+    limit?: number | null;
 }
 
 export function applyPagination<T extends Model>(
-  query: Objection.QueryBuilder<T, T[]>,
-  pageInfo: PageInfo = {},
+    query: Objection.QueryBuilder<T, T[]>,
+    pageInfo: PageInfo = {}
 ) {
-  const page = Math.max(pageInfo.page || 1, 1);
-  const limit = Math.min(pageInfo.limit || 20, 50);
+    const page = Math.max(pageInfo.page || 1, 1);
+    const limit = Math.min(pageInfo.limit || 20, 50);
 
-  const offset = (page - 1) * limit;
+    const offset = (page - 1) * limit;
 
-  query.limit(limit).offset(offset);
+    query.limit(limit).offset(offset);
 }

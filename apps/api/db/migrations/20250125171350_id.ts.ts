@@ -1,7 +1,7 @@
 import { Knex } from 'knex';
 
 export async function up(knex: Knex) {
-  await knex.raw(`
+    await knex.raw(`
     CREATE OR REPLACE FUNCTION generate_cuid() RETURNS text
     LANGUAGE plpgsql
     AS $$
@@ -24,7 +24,7 @@ export async function up(knex: Knex) {
 }
 
 export async function down(knex: Knex) {
-  await knex.raw(`
+    await knex.raw(`
     DROP FUNCTION IF EXISTS generate_cuid;
   `);
 }

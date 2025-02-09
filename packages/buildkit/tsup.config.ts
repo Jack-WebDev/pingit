@@ -1,3 +1,3 @@
-import { options, defineConfig } from './src';
+import { defineConfig, options } from './src';
 
 export default defineConfig(options);
