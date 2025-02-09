@@ -12,12 +12,15 @@
   },
   "dependencies": {
     "@pingit/ui": "workspace:*",
+    "@pingit/client": "workspace:*",
+    "@pingit/serverkit": "workspace:*",
+    "@pingit/utils": "workspace:*",
     "@million/lint": "^1.0.14",
     "next": "^15.1.0"
   },
   "devDependencies": {
-    "@pingit/lint": "workspace:*",
     "@pingit/ts": "workspace:*",
+    "@pingit/lint": "workspace:*",
     "@types/node": "^20",
     "typescript": "5.5.4"
   },
