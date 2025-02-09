@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Lock, ArrowLeft, AtSign } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -68,7 +69,7 @@ export default function LoginForm() {
         <motion.div variants={itemVariants} className="space-y-6 lg:pr-8">
           <div className="space-y-2">
             <motion.h1
-              className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[hsl(var(--primary))] to-blue-400 bg-clip-text text-transparent text-center"
+              className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[hsl(var(--primary))] to-[#FF9EDB] bg-clip-text text-transparent text-center"
               whileHover={{ scale: 1.02 }}
             >
               Welcome Back
@@ -91,7 +92,13 @@ export default function LoginForm() {
                 repeatType: "reverse",
               }}
             >
-              <Image src="/logo.webp" alt="Pingit Logo" width={200} height={100} className="rounded-2xl"/>
+              <Image
+                src="/logo.webp"
+                alt="Pingit Logo"
+                width={200}
+                height={100}
+                className="rounded-2xl"
+              />
             </motion.div>
           </div>
         </motion.div>
@@ -143,6 +150,9 @@ export default function LoginForm() {
                   </FormItem>
                 )}
               />
+              <p className="mt-4 text-gray-100 font-medium text-end">
+                <Link href="/forgot-password" className="hover:underline">Forgot password?</Link>
+              </p>
             </motion.div>
 
             <motion.div
