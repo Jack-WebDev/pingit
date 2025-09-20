@@ -7,9 +7,10 @@ import Fastify from "fastify";
 import { auth } from "./lib/auth";
 import { createContext } from "./lib/context";
 import { type AppRouter, appRouter } from "./routers/index";
+import {env} from "./utils";
 
 const baseCorsConfig = {
-	origin: process.env.CORS_ORIGIN || "",
+	origin: env.CORS_ORIGIN || "",
 	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 	allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 	credentials: true,
@@ -68,10 +69,10 @@ fastify.get("/", async () => {
 	return "OK";
 });
 
-fastify.listen({ port: 3000 }, (err) => {
+fastify.listen({ port: env.API_PORT }, (err) => {
 	if (err) {
 		fastify.log.error(err);
 		process.exit(1);
 	}
-	console.log("Server running on port 3000");
+	console.log(`Server running on port ${env.API_PORT}`);
 });
