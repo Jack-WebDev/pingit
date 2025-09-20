@@ -1,15 +1,12 @@
-import "dotenv/config";
-import Fastify from "fastify";
 import fastifyCors from "@fastify/cors";
-
 import {
-	fastifyTRPCPlugin,
 	type FastifyTRPCPluginOptions,
+	fastifyTRPCPlugin,
 } from "@trpc/server/adapters/fastify";
-import { createContext } from "./lib/context";
-import { appRouter, type AppRouter } from "./routers/index";
-
+import Fastify from "fastify";
 import { auth } from "./lib/auth";
+import { createContext } from "./lib/context";
+import { type AppRouter, appRouter } from "./routers/index";
 
 const baseCorsConfig = {
 	origin: process.env.CORS_ORIGIN || "",
@@ -42,7 +39,9 @@ fastify.route({
 			});
 			const response = await auth.handler(req);
 			reply.status(response.status);
-			response.headers.forEach((value, key) => reply.header(key, value));
+			response.headers.forEach((value, key) => {
+				reply.header(key, value);
+			});
 			reply.send(response.body ? await response.text() : null);
 		} catch (error) {
 			fastify.log.error({ err: error }, "Authentication Error:");
