@@ -86,7 +86,11 @@ jobs:
         run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Run drizzle generate
-        run: pnpm dlx drizzle-kit generate --config=apps/server/drizzle.config.ts
+        working-directory: apps/server
+        env:
+          NODE_OPTIONS: --loader ts-node/esm
+          DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
+        run: pnpm dlx --package=ts-node --package=typescript --package=drizzle-kit drizzle-kit generate --config=drizzle.config.ts
 
       - name: Fail if generate changed files (commit your migrations)
         run: |
@@ -229,9 +233,12 @@ jobs:
         run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Run drizzle migrate (test DB)
+        working-directory: apps/server
         env:
+          NODE_OPTIONS: --loader=ts-node/esm
           DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
-        run: pnpm dlx drizzle-kit migrate --config=apps/server/drizzle.config.ts
+        run: pnpm dlx --package=ts-node --package=typescript --package=drizzle-kit drizzle-kit migrate --config=drizzle.config.ts
+
 
       - name: Run tests
         run: |
