@@ -19,26 +19,40 @@ export const queryClient = new QueryClient({
 	}),
 });
 
-// Helper function to get the correct API URL
+const TRPC_PATH = process.env.NEXT_PUBLIC_TRPC_PATH ?? "/api/trpc";
+
+/**
+ * Returns the absolute base URL for SSR, and either an absolute or relative
+ * base URL for the browser depending on whether you're using one or two projects.
+ */
 function getBaseUrl() {
+	// 1) Browser
 	if (typeof window !== "undefined") {
-		// Browser should use relative path
-		return "";
+		// If you're deploying server as a separate project, set NEXT_PUBLIC_API_URL (e.g., https://your-server.vercel.app)
+		// If same project, leave it undefined to use relative fetches.
+		return process.env.NEXT_PUBLIC_API_URL ?? "";
 	}
 
-	// SSR should use vercel url
+	// 2) SSR on Vercel
 	if (process.env.VERCEL_URL) {
-		return `https://${process.env.VERCEL_URL}`;
+		const host =
+			process.env.NEXT_PUBLIC_API_URL ?? `https://${process.env.VERCEL_URL}`;
+		return host;
 	}
 
-	// Development fallback
-	return process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
+	// 3) Local dev
+	// If server runs separately (e.g. :3001) set NEXT_PUBLIC_SERVER_URL; else default to :3000
+	return (
+		process.env.NEXT_PUBLIC_API_URL ??
+		process.env.NEXT_PUBLIC_SERVER_URL ??
+		"http://localhost:3000"
+	);
 }
 
 const trpcClient = createTRPCClient<AppRouter>({
 	links: [
 		httpBatchLink({
-			url: `${getBaseUrl()}/trpc`,
+			url: `${getBaseUrl()}${TRPC_PATH}`,
 			fetch(url, options) {
 				return fetch(url, {
 					...options,
