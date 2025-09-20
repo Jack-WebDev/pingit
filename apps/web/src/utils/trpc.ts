@@ -19,10 +19,26 @@ export const queryClient = new QueryClient({
 	}),
 });
 
+// Helper function to get the correct API URL
+function getBaseUrl() {
+	if (typeof window !== "undefined") {
+		// Browser should use relative path
+		return "";
+	}
+
+	// SSR should use vercel url
+	if (process.env.VERCEL_URL) {
+		return `https://${process.env.VERCEL_URL}`;
+	}
+
+	// Development fallback
+	return process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
+}
+
 const trpcClient = createTRPCClient<AppRouter>({
 	links: [
 		httpBatchLink({
-			url: `${process.env.NEXT_PUBLIC_SERVER_URL}/trpc`,
+			url: `${getBaseUrl()}/trpc`,
 			fetch(url, options) {
 				return fetch(url, {
 					...options,

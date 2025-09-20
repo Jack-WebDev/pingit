@@ -19,7 +19,7 @@ const baseCorsConfig = {
 
 export async function createServer() {
 	const fastify = Fastify({
-		logger: true,
+		logger: process.env.NODE_ENV === "development",
 	});
 
 	await fastify.register(fastifyCors, baseCorsConfig);
