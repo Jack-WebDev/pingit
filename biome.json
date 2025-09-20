@@ -13,6 +13,7 @@
 			"!**/dist",
 			"!**/.turbo",
 			"!**/dev-dist",
+			"!**/coverage",
 			"!**/.zed",
 			"!**/.vscode",
 			"!**/routeTree.gen.ts",

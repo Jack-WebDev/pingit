@@ -3,9 +3,20 @@ import { fromNodeHeaders } from "better-auth/node";
 import { auth } from "./auth";
 
 export async function createContext({ req }: CreateFastifyContextOptions) {
+	const headers = req?.headers ? fromNodeHeaders(req.headers) : new Headers();
+
 	const session = await auth.api.getSession({
-		headers: fromNodeHeaders(req.headers),
+		headers,
 	});
+
+	return { session };
+}
+
+export async function createTestContext(headers: Record<string, string> = {}) {
+	const session = await auth.api.getSession({
+		headers: new Headers(headers),
+	});
+
 	return { session };
 }
 

@@ -48,6 +48,13 @@
 		"db:down": {
 			"cache": false,
 			"persistent": true
+		},
+		"test:ci": {
+			"dependsOn": ["^build"],
+			"persistent": true
+		},
+		"test:once": {
+			"dependsOn": ["^build"]
 		}
 	}
 }
