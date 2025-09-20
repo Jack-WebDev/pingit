@@ -7,7 +7,7 @@ import Fastify from "fastify";
 import { auth } from "./lib/auth";
 import { createContext } from "./lib/context";
 import { type AppRouter, appRouter } from "./routers/index";
-import {env} from "./utils";
+import { env } from "./utils";
 
 const baseCorsConfig = {
 	origin: env.CORS_ORIGIN || "",
