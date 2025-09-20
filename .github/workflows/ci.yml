@@ -1,0 +1,225 @@
+name: PingIt CI
+
+on:
+  push:
+    branches: [test, dev]
+  pull_request:
+    branches: [test, dev]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 20
+  PNPM_VERSION: 10.15.1
+  NEXT_TELEMETRY_DISABLED: 1
+  CI: true
+
+jobs:
+  setup:
+    name: Setup & Install
+    runs-on: ubuntu-latest
+    outputs:
+      pnpm-store-path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Get pnpm store directory
+        id: pnpm-store
+        run: echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
+          key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-
+
+      - name: Restore Turbo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-${{ env.NODE_VERSION }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+  drift:
+    name: Drizzle generate (schema drift check)
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Restore pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ needs.setup.outputs.pnpm-store-path }}
+          key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Run drizzle generate
+        run: pnpm dlx drizzle-kit generate
+
+      - name: Fail if generate changed files (commit your migrations)
+        run: |
+          git status --porcelain
+          git diff --quiet || (echo "⛔ Drizzle generate produced changes. Commit migrations before pushing." && exit 1)
+
+  lint:
+    name: Biome
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Restore pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ needs.setup.outputs.pnpm-store-path }}
+          key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Run Biome check (no write)
+        run: pnpm biome check .
+
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Restore pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ needs.setup.outputs.pnpm-store-path }}
+          key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Type check via Turborepo
+        run: pnpm check-types
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [setup, lint, typecheck, drift]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Restore pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ needs.setup.outputs.pnpm-store-path }}
+          key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Restore Turbo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-${{ env.NODE_VERSION }}-
+
+      - name: Build via Turborepo
+        run: pnpm build
+
+  test:
+    name: Tests (Vitest/Supertest) w/ Postgres
+    runs-on: ubuntu-latest
+    needs: [setup, lint, typecheck, drift]
+    services:
+      db_test:
+        image: postgres:16
+        env:
+          POSTGRES_DB: app_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d app_test"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5433/app_test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Restore pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ needs.setup.outputs.pnpm-store-path }}
+          key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      # Apply migrations to the ephemeral test DB only (CI, not deploy).
+      - name: Run drizzle migrate (test DB)
+        env:
+          DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
+        run: pnpm dlx drizzle-kit migrate
+
+      - name: Run tests
+        run: |
+          echo "Using TEST_DATABASE_URL=$TEST_DATABASE_URL"
+          pnpm test:ci
