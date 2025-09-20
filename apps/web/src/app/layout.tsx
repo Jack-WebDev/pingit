@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 	title: "PingIt",
 	icons: {
 		icon: "pingit_logo.png",
-	}
+	},
 };
 
 export default function RootLayout({
