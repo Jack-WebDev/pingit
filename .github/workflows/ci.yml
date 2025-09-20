@@ -82,13 +82,16 @@ jobs:
           path: ${{ needs.setup.outputs.pnpm-store-path }}
           key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
+      - name: Install deps (uses restored store)
+        run: pnpm install --frozen-lockfile --prefer-offline
+
       - name: Run drizzle generate
-        run: pnpm dlx drizzle-kit generate
+        run: pnpm dlx drizzle-kit generate --config=drizzle.config.ts
 
       - name: Fail if generate changed files (commit your migrations)
         run: |
           git status --porcelain
-          git diff --quiet || (echo "⛔ Drizzle generate produced changes. Commit migrations before pushing." && exit 1)
+          git diff --quiet || (echo " Drizzle generate produced changes. Commit migrations before pushing." && exit 1)
 
   lint:
     name: Biome
@@ -112,8 +115,11 @@ jobs:
           path: ${{ needs.setup.outputs.pnpm-store-path }}
           key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
+      - name: Install deps (uses restored store)
+        run: pnpm install --frozen-lockfile --prefer-offline
+
       - name: Run Biome check (no write)
-        run: pnpm biome check .
+        run: pnpm dlx @biomejs/biome check .
 
   typecheck:
     name: Type Check
@@ -137,8 +143,11 @@ jobs:
           path: ${{ needs.setup.outputs.pnpm-store-path }}
           key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
+      - name: Install deps (uses restored store)
+        run: pnpm install --frozen-lockfile --prefer-offline
+
       - name: Type check via Turborepo
-        run: pnpm check-types
+        run: pnpm dlx turbo run check-types
 
   build:
     name: Build
@@ -170,8 +179,11 @@ jobs:
           restore-keys: |
             turbo-${{ runner.os }}-${{ env.NODE_VERSION }}-
 
+      - name: Install deps (uses restored store)
+        run: pnpm install --frozen-lockfile --prefer-offline
+
       - name: Build via Turborepo
-        run: pnpm build
+        run: pnpm dlx turbo run build
 
   test:
     name: Tests (Vitest/Supertest) w/ Postgres
@@ -213,11 +225,13 @@ jobs:
           path: ${{ needs.setup.outputs.pnpm-store-path }}
           key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      # Apply migrations to the ephemeral test DB only (CI, not deploy).
+      - name: Install deps (uses restored store)
+        run: pnpm install --frozen-lockfile --prefer-offline
+
       - name: Run drizzle migrate (test DB)
         env:
           DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
-        run: pnpm dlx drizzle-kit migrate
+        run: pnpm dlx drizzle-kit migrate --config=drizzle.config.ts
 
       - name: Run tests
         run: |
