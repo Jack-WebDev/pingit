@@ -1,0 +1,43 @@
+name: pingit
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: pingit-postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: pingit
+      POSTGRES_PASSWORD: pingit
+    ports:
+      - "5432:5432"
+    volumes:
+      - pingit_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pingit -d pingit"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: pingit-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - pingit_redis_data:/data
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: pingit-mailpit
+    ports:
+      - "8025:8025"   # Web UI
+      - "1025:1025"   # SMTP
+    restart: unless-stopped
+
+
+volumes:
+  pingit_postgres_data:
+  pingit_redis_data:
