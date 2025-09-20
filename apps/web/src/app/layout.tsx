@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
-import { Libertinus_Mono, Libertinus_Sans } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/header";
 import Providers from "@/components/providers";
 import "../index.css";
 
-const libertinusSans = Libertinus_Sans({
-	variable: "--font-libertinus-sans",
-	weight: ["400", "700"],
+const geistSans = Geist({
+	variable: "--font-geist-sans",
 	subsets: ["latin"],
 });
 
-const libertinusMono = Libertinus_Mono({
-	variable: "--font-libertinus-mono",
-	weight: ["400"],
+const geistMono = Geist_Mono({
+	variable: "--font-geist-mono",
 	subsets: ["latin"],
 });
 
@@ -34,7 +32,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body
-				className={`${libertinusSans.variable} ${libertinusMono.variable} antialiased`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<Providers>
 					<div className="grid h-svh grid-rows-[auto_1fr]">

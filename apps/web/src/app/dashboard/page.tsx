@@ -18,7 +18,7 @@ export default async function DashboardPage() {
 		<div>
 			<h1>Dashboard</h1>
 			<p>Welcome {session.data.user.name}</p>
-			<Dashboard session={session.data} />
+			<Dashboard />
 		</div>
 	);
 }

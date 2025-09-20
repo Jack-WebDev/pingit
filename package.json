@@ -21,7 +21,9 @@
 		"db:migrate": "turbo -F server db:migrate",
 		"db:start": "docker compose up -d",
 		"db:stop": "docker compose down",
-		"db:watch": "docker compose up"
+		"db:watch": "docker compose up",
+		"test:ci": "turbo run test:ci",
+		"test:once": "turbo run test:once"
 	},
 	"dependencies": {},
 	"devDependencies": {

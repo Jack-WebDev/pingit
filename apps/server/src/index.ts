@@ -17,62 +17,73 @@ const baseCorsConfig = {
 	maxAge: 86400,
 };
 
-const fastify = Fastify({
-	logger: true,
-});
+export async function createServer() {
+	const fastify = Fastify({
+		logger: true,
+	});
 
-fastify.register(fastifyCors, baseCorsConfig);
+	await fastify.register(fastifyCors, baseCorsConfig);
 
-fastify.route({
-	method: ["GET", "POST"],
-	url: "/api/auth/*",
-	async handler(request, reply) {
-		try {
-			const url = new URL(request.url, `http://${request.headers.host}`);
-			const headers = new Headers();
-			Object.entries(request.headers).forEach(([key, value]) => {
-				if (value) headers.append(key, value.toString());
-			});
-			const req = new Request(url.toString(), {
-				method: request.method,
-				headers,
-				body: request.body ? JSON.stringify(request.body) : undefined,
-			});
-			const response = await auth.handler(req);
-			reply.status(response.status);
-			response.headers.forEach((value, key) => {
-				reply.header(key, value);
-			});
-			reply.send(response.body ? await response.text() : null);
-		} catch (error) {
-			fastify.log.error({ err: error }, "Authentication Error:");
-			reply.status(500).send({
-				error: "Internal authentication error",
-				code: "AUTH_FAILURE",
-			});
-		}
-	},
-});
-
-fastify.register(fastifyTRPCPlugin, {
-	prefix: "/trpc",
-	trpcOptions: {
-		router: appRouter,
-		createContext,
-		onError({ path, error }) {
-			console.error(`Error in tRPC handler on path '${path}':`, error);
+	fastify.route({
+		method: ["GET", "POST"],
+		url: "/api/auth/*",
+		async handler(request, reply) {
+			try {
+				const url = new URL(request.url, `http://${request.headers.host}`);
+				const headers = new Headers();
+				Object.entries(request.headers).forEach(([key, value]) => {
+					if (value) headers.append(key, value.toString());
+				});
+				const req = new Request(url.toString(), {
+					method: request.method,
+					headers,
+					body: request.body ? JSON.stringify(request.body) : undefined,
+				});
+				const response = await auth.handler(req);
+				reply.status(response.status);
+				response.headers.forEach((value, key) => {
+					reply.header(key, value);
+				});
+				reply.send(response.body ? await response.text() : null);
+			} catch (error) {
+				fastify.log.error({ err: error }, "Authentication Error:");
+				reply.status(500).send({
+					error: "Internal authentication error",
+					code: "AUTH_FAILURE",
+				});
+			}
 		},
-	} satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],
-});
+	});
 
-fastify.get("/", async () => {
-	return "OK";
-});
+	await fastify.register(fastifyTRPCPlugin, {
+		prefix: "/trpc",
+		trpcOptions: {
+			router: appRouter,
+			createContext,
+			onError({ path, error }) {
+				console.error(`Error in tRPC handler on path '${path}':`, error);
+			},
+		} satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],
+	});
 
-fastify.listen({ port: env.API_PORT }, (err) => {
-	if (err) {
-		fastify.log.error(err);
-		process.exit(1);
-	}
-	console.log(`Server running on port ${env.API_PORT}`);
-});
+	fastify.get("/health", async () => {
+		return { ok: true };
+	});
+
+	return fastify;
+}
+
+export async function startServer() {
+	const app = await createServer();
+
+	return new Promise<typeof app>((resolve, reject) => {
+		app.listen({ port: env.API_PORT, host: "0.0.0.0" }, (err) => {
+			if (err) {
+				reject(err);
+			} else {
+				console.log(`Server running on port ${env.API_PORT}`);
+				resolve(app);
+			}
+		});
+	});
+}
