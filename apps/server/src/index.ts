@@ -56,7 +56,7 @@ export async function createServer() {
 	});
 
 	await fastify.register(fastifyTRPCPlugin, {
-		prefix: "/trpc",
+		prefix: "/api/trpc",
 		trpcOptions: {
 			router: appRouter,
 			createContext,
@@ -66,7 +66,7 @@ export async function createServer() {
 		} satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],
 	});
 
-	fastify.get("/health", async () => {
+	fastify.get("/api/health", async () => {
 		return { ok: true };
 	});
 
