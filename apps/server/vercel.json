@@ -1,3 +1,6 @@
 {
-	"functions": { "api/**/*.ts": { "includeFiles": "src/**" } }
+	"outputDirectory": ".",
+	"functions": { "api/**/*.ts": { "includeFiles": "src/**" } },
+	"buildCommand": "echo no build",
+	"installCommand": "pnpm install --frozen-lockfile"
 }
