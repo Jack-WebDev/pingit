@@ -1,5 +1,5 @@
 {
-	"rewrites": [{ "source": "/api/(.*)", "destination": "/api/index.ts" }],
+	"rewrites": [{ "source": "/api/(.*)", "destination": "/api/[...all].ts" }],
 	"functions": {
 		"api/index.ts": {
 			"includeFiles": "src/**",
