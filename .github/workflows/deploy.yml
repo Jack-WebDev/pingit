@@ -4,9 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - "apps/server/src/db/**"
-      - "apps/server/drizzle.config.ts"
+  pull_request:
+    branches: [main]
 
 jobs:
   migrate:
