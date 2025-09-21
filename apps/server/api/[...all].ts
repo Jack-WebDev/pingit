@@ -4,11 +4,24 @@ import { createServer } from "../src/index.js";
 
 let app: FastifyInstance | null = null;
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-	if (!app) {
-		app = await createServer();
-		await app.ready();
-	}
+export const config = {
+	api: {
+		bodyParser: false,
+	},
+};
 
-	app.server.emit("request", req, res);
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+	try {
+		if (!app) {
+			app = await createServer();
+			await app.ready();
+		}
+		app.server.emit("request", req, res);
+	} catch (err) {
+		console.error("Fastify boot/dispatch error:", err);
+		if (!res.headersSent) {
+			res.statusCode = 500;
+			res.end("Internal error");
+		}
+	}
 }
