@@ -4,10 +4,10 @@ import {
 	fastifyTRPCPlugin,
 } from "@trpc/server/adapters/fastify";
 import Fastify from "fastify";
-import { auth } from "./lib/auth";
-import { createContext } from "./lib/context";
-import { type AppRouter, appRouter } from "./routers/index";
-import { env } from "./utils";
+import { auth } from "./lib/auth.js";
+import { createContext } from "./lib/context.js";
+import { type AppRouter, appRouter } from "./routers/index.js";
+import { env } from "./utils/index.js";
 
 const baseCorsConfig = {
 	origin: env.CORS_ORIGIN || "",

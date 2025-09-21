@@ -1,5 +1,5 @@
-import { createServer } from "./index";
-import { env } from "./utils";
+import { createServer } from "./index.js";
+import { env } from "./utils/index.js";
 
 createServer()
 	.then((app) => {

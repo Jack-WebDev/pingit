@@ -3,7 +3,7 @@ import { drizzle as drizzleNode } from "drizzle-orm/node-postgres";
 
 import { drizzle as drizzleVercel } from "drizzle-orm/vercel-postgres";
 import { Pool } from "pg";
-import { env } from "../utils/env";
+import { env } from "../utils";
 import * as schema from "./schema/index";
 
 const isProd = env.NODE_ENV === "production" || process.env.VERCEL === "1";
