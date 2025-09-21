@@ -2,11 +2,7 @@
 	"rewrites": [{ "source": "/api/(.*)", "destination": "/api/[...all].ts" }],
 	"functions": {
 		"api/[...all].ts": {
-			"includeFiles": "src/**",
-			"memory": 1024,
-			"maxDuration": 10
+			"includeFiles": "src/**"
 		}
-	},
-	"buildCommand": "echo no build",
-	"installCommand": "pnpm install --frozen-lockfile"
+	}
 }
