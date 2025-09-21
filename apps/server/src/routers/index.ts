@@ -1,4 +1,4 @@
-import { protectedProcedure, publicProcedure, router } from "../lib/trpc";
+import { protectedProcedure, publicProcedure, router } from "../lib/trpc.js";
 import { todoRouter } from "./todo.js";
 
 export const appRouter = router({
