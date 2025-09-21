@@ -1,14 +1,7 @@
 {
 	"outputDirectory": ".",
-	"rewrites": [
-		{ "source": "/trpc/:path*", "destination": "/api" },
-		{ "source": "/api/auth/:path*", "destination": "/api" },
-		{ "source": "/health", "destination": "/api" }
-	],
 	"functions": {
-		"apps/server/api/**/*.ts": {
-			"includeFiles": ["apps/server/src/**/*"]
-		}
+		"api/**/*.ts": { "includeFiles": "src/**" }
 	},
 	"buildCommand": "echo no build",
 	"installCommand": "pnpm install --frozen-lockfile"
