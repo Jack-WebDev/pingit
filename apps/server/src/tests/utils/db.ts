@@ -3,7 +3,7 @@ import { migrate } from "drizzle-orm/node-postgres/migrator";
 import pg from "pg";
 
 export async function makeDb() {
-	const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
+	const pool = new pg.Pool({ connectionString: process.env.POSTGRES_URL });
 	const db = drizzle(pool);
 	return { db, pool };
 }

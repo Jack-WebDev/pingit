@@ -1,10 +1,29 @@
-import { drizzle } from "drizzle-orm/node-postgres";
+import { sql } from "@vercel/postgres";
+import { drizzle as drizzleNode } from "drizzle-orm/node-postgres";
+
+import { drizzle as drizzleVercel } from "drizzle-orm/vercel-postgres";
 import { Pool } from "pg";
-import { env } from "../utils";
+import { env } from "../utils/env";
+import * as schema from "./schema/index";
 
-const pool = new Pool({
-	connectionString: env.DATABASE_URL,
-	max: 1,
-});
+const isProd = env.NODE_ENV === "production" || process.env.VERCEL === "1";
 
-export const db = drizzle(pool);
+let db: ReturnType<typeof drizzleVercel> | ReturnType<typeof drizzleNode>;
+
+let pool: Pool | undefined;
+
+if (isProd) {
+	db = drizzleVercel(sql, { schema });
+} else {
+	const connectionString =
+		env.POSTGRES_URL_NON_POOLING || env.DATABASE_URL || env.POSTGRES_URL;
+
+	pool = new Pool({
+		connectionString,
+		ssl: false,
+	});
+
+	db = drizzleNode(pool, { schema });
+}
+
+export { db };
