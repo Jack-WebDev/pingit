@@ -13,43 +13,37 @@ const ALLOWED_ORIGINS = [env.CORS_ORIGIN, "http://localhost:3001"].filter(
 	Boolean,
 );
 
-const baseCorsConfig = {
-	origin: (
-		origin: string | undefined,
-		cb: (err: Error | null, allowed: boolean) => void,
-	) => {
-		if (!origin) return cb(null, true);
-		cb(null, ALLOWED_ORIGINS.includes(origin));
-	},
-	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-	allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-	credentials: true,
-	maxAge: 86400,
-	strictPreflight: false,
-};
+// const isAllowed = (o?: string) => !!o && ALLOWED_ORIGINS.includes(o);
+
+// const baseCorsConfig = {
+//   origin: (
+//     origin: string | undefined,
+//     cb: (err: Error | null, allowed: boolean) => void
+//   ) => {
+//     if (!origin) return cb(null, true);
+//     cb(null, ALLOWED_ORIGINS.includes(origin));
+//   },
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+//   credentials: true,
+//   maxAge: 86400,
+//   strictPreflight: false,
+// };
 
 export async function createServer() {
 	const fastify = Fastify({
 		logger: process.env.NODE_ENV === "development",
 	});
 
-	await fastify.register(fastifyCors, baseCorsConfig);
-
-	fastify.options("/api/*", async (request, reply) => {
-		reply
-			.header(
-				"Access-Control-Allow-Origin",
-				request.headers.origin ?? ALLOWED_ORIGINS[0],
-			)
-			.header("Vary", "Origin")
-			.header("Access-Control-Allow-Credentials", "true")
-			.header(
-				"Access-Control-Allow-Headers",
-				"Content-Type, Authorization, X-Requested-With",
-			)
-			.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
-			.status(204)
-			.send();
+	await fastify.register(fastifyCors, {
+		origin: (origin, cb) => {
+			if (!origin) return cb(null, true);
+			cb(null, ALLOWED_ORIGINS.includes(origin));
+		},
+		credentials: true,
+		allowedHeaders: ["*"],
+		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+		maxAge: 86400,
 	});
 
 	fastify.route({
@@ -96,6 +90,14 @@ export async function createServer() {
 
 	fastify.get("/api/health", async () => {
 		return { ok: true };
+	});
+
+	fastify.get("/api/auth/test", async (request, reply) => {
+		reply.send({
+			message: "Auth route is working",
+			url: request.url,
+			method: request.method,
+		});
 	});
 
 	return fastify;
