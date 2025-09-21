@@ -1,6 +1,6 @@
 import type { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
 import { fromNodeHeaders } from "better-auth/node";
-import { auth } from "./auth";
+import { auth } from "./auth.js";
 
 export async function createContext({ req }: CreateFastifyContextOptions) {
 	const headers = req?.headers ? fromNodeHeaders(req.headers) : new Headers();
