@@ -7,11 +7,12 @@ import Fastify from "fastify";
 import { auth } from "./lib/auth.js";
 import { createContext } from "./lib/context.js";
 import { type AppRouter, appRouter } from "./routers/index.js";
-import { env } from "./utils/index.js";
+import "dotenv/config";
 
-const ALLOWED_ORIGINS = [env.CORS_ORIGIN, "http://localhost:3001"].filter(
-	Boolean,
-);
+const ALLOWED_ORIGINS = [
+	process.env.CORS_ORIGIN,
+	"http://localhost:3001",
+].filter(Boolean);
 
 // const isAllowed = (o?: string) => !!o && ALLOWED_ORIGINS.includes(o);
 
@@ -107,13 +108,16 @@ export async function startServer() {
 	const app = await createServer();
 
 	return new Promise<typeof app>((resolve, reject) => {
-		app.listen({ port: env.API_PORT, host: "0.0.0.0" }, (err) => {
-			if (err) {
-				reject(err);
-			} else {
-				console.log(`Server running on port ${env.API_PORT}`);
-				resolve(app);
-			}
-		});
+		app.listen(
+			{ port: Number(process.env.API_PORT), host: "0.0.0.0" },
+			(err) => {
+				if (err) {
+					reject(err);
+				} else {
+					console.log(`Server running on port ${process.env.API_PORT}`);
+					resolve(app);
+				}
+			},
+		);
 	});
 }
