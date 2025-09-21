@@ -1,6 +1,13 @@
 {
-	"outputDirectory": ".",
-	"functions": { "api/**/*.ts": { "includeFiles": "src/**" } },
+	"rewrites": [{ "source": "/api/(.*)", "destination": "/api/index.ts" }],
+	"functions": {
+		"api/index.ts": {
+			"runtime": "nodejs18.x",
+			"includeFiles": "src/**",
+			"memory": 1024,
+			"maxDuration": 10
+		}
+	},
 	"buildCommand": "echo no build",
 	"installCommand": "pnpm install --frozen-lockfile"
 }
