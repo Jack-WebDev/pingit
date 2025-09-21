@@ -1,16 +1,16 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { defineConfig } from "drizzle-kit";
-import "dotenv/config";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import { env } from "../server/src/utils/env";
 
 export default defineConfig({
-	schema: path.join(__dirname, "src/db/schema/**/*.ts"),
-	out: path.join(__dirname, "src/db/migrations"),
+	schema: "./src/db/schema",
+	out: "./src/db/migrations",
 	dialect: "postgresql",
 	dbCredentials: {
-		url: process.env.DATABASE_URL as string,
+		url:
+			env.POSTGRES_URL_NON_POOLING ??
+			env.DATABASE_URL ??
+			env.POSTGRES_URL ??
+			"",
 	},
 	migrations: {
 		schema: "public",
