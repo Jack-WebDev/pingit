@@ -6,7 +6,9 @@
 		{ "source": "/health", "destination": "/api" }
 	],
 	"functions": {
-		"api/index.ts": { "maxDuration": 30, "memory": 1024 }
+		"apps/server/api/**/*.ts": {
+			"includeFiles": ["apps/server/src/**/*"]
+		}
 	},
 	"buildCommand": "echo no build",
 	"installCommand": "pnpm install --frozen-lockfile"
