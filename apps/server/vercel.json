@@ -2,7 +2,6 @@
 	"rewrites": [{ "source": "/api/(.*)", "destination": "/api/index.ts" }],
 	"functions": {
 		"api/index.ts": {
-			"runtime": "nodejs18.x",
 			"includeFiles": "src/**",
 			"memory": 1024,
 			"maxDuration": 10
