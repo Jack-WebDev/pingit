@@ -39,5 +39,8 @@
 			"biome check --write ."
 		]
 	},
-	"packageManager": "pnpm@10.15.1"
+	"packageManager": "pnpm@10.15.1",
+	"engines": {
+		"node": ">=20 <21"
+	}
 }
