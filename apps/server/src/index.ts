@@ -9,12 +9,23 @@ import { createContext } from "./lib/context.js";
 import { type AppRouter, appRouter } from "./routers/index.js";
 import { env } from "./utils/index.js";
 
+const ALLOWED_ORIGINS = [env.CORS_ORIGIN, "http://localhost:3001"].filter(
+	Boolean,
+);
+
 const baseCorsConfig = {
-	origin: env.CORS_ORIGIN || "",
+	origin: (
+		origin: string | undefined,
+		cb: (err: Error | null, allowed: boolean) => void,
+	) => {
+		if (!origin) return cb(null, true);
+		cb(null, ALLOWED_ORIGINS.includes(origin));
+	},
 	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 	allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 	credentials: true,
 	maxAge: 86400,
+	strictPreflight: false,
 };
 
 export async function createServer() {
@@ -23,6 +34,23 @@ export async function createServer() {
 	});
 
 	await fastify.register(fastifyCors, baseCorsConfig);
+
+	fastify.options("/api/*", async (request, reply) => {
+		reply
+			.header(
+				"Access-Control-Allow-Origin",
+				request.headers.origin ?? ALLOWED_ORIGINS[0],
+			)
+			.header("Vary", "Origin")
+			.header("Access-Control-Allow-Credentials", "true")
+			.header(
+				"Access-Control-Allow-Headers",
+				"Content-Type, Authorization, X-Requested-With",
+			)
+			.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+			.status(204)
+			.send();
+	});
 
 	fastify.route({
 		method: ["GET", "POST"],
