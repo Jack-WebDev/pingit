@@ -34,6 +34,7 @@ const ALLOWED_ORIGINS = [
 export async function createServer() {
 	const fastify = Fastify({
 		logger: process.env.NODE_ENV === "development",
+		trustProxy: true,
 	});
 
 	await fastify.register(fastifyCors, {
@@ -52,7 +53,12 @@ export async function createServer() {
 		url: "/api/auth/*",
 		async handler(request, reply) {
 			try {
-				const url = new URL(request.url, `http://${request.headers.host}`);
+				const url = new URL(
+					request.url,
+					`${request.protocol}://${request.hostname}`,
+				);
+				request.log.info({ builtUrl: url.toString() }, "Auth URL base");
+
 				const headers = new Headers();
 				Object.entries(request.headers).forEach(([key, value]) => {
 					if (value) headers.append(key, value.toString());
