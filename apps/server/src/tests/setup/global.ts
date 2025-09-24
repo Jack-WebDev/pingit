@@ -2,14 +2,18 @@ import { config } from "dotenv";
 import { afterAll, beforeEach } from "vitest";
 import { truncateAll } from "../utils/db";
 
-config({ path: ".env.test" });
+config({ path: ".env.test", override: false });
 
 const TABLES = ["user", "todo"];
 
 beforeEach(async () => {
-	await truncateAll(TABLES);
+	if (
+		process.env.POSTGRES_URL ||
+		process.env.DATABASE_URL ||
+		process.env.POSTGRES_URL_NON_POOLING
+	) {
+		await truncateAll(TABLES);
+	}
 });
 
-afterAll(async () => {
-	// Optionally drop schema or stop containers here if you started them programmatically
-});
+afterAll(async () => {});
