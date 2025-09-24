@@ -31,6 +31,18 @@ export async function createServer() {
 		maxAge: 86400,
 	});
 
+	fastify.get("/api/auth/test", async (request, reply) => {
+		reply.send({
+			message: "Auth route is working",
+			url: request.url,
+			method: request.method,
+		});
+	});
+
+	fastify.get("/api/health", async () => {
+		return { ok: true };
+	});
+
 	fastify.route({
 		method: ["GET", "POST"],
 		url: "/api/auth/*",
@@ -76,18 +88,6 @@ export async function createServer() {
 				console.error(`Error in tRPC handler on path '${path}':`, error);
 			},
 		} satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],
-	});
-
-	fastify.get("/api/health", async () => {
-		return { ok: true };
-	});
-
-	fastify.get("/api/auth/test", async (request, reply) => {
-		reply.send({
-			message: "Auth route is working",
-			url: request.url,
-			method: request.method,
-		});
 	});
 
 	return fastify;
