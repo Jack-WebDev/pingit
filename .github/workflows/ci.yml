@@ -110,6 +110,24 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     needs: setup
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: pingit_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d pingit_test"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      POSTGRES_URL: postgres://postgres:postgres@localhost:5432/pingit_test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/pingit_test
+      POSTGRES_URL_NON_POOLING: postgres://postgres:postgres@localhost:5432/pingit_test
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -126,15 +144,19 @@ jobs:
           key: pnpm-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Install deps (uses restored store)
         run: pnpm install --frozen-lockfile --prefer-offline
+
+      - name: Check Postgres is ready
+        run: |
+          for i in {1..30}; do
+            if pg_isready -h localhost -p 5432 -U postgres -d pingit_test; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Postgres not ready in time"; exit 1
+
       - name: Run tests (Turbo)
         run: pnpm test:ci
-      # Uncomment if you output coverage to coverage/
-      # - name: Upload coverage artifact
-      #   uses: actions/upload-artifact@v4
-      #   if: always()
-      #   with:
-      #     name: coverage
-      #     path: coverage
 
   build:
     name: Build
