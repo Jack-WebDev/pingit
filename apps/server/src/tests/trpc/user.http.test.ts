@@ -13,7 +13,7 @@ afterAll(async () => {
 });
 
 it("calls trpc procedure over http", async () => {
-	const res = await request(app.server).get("/trpc/todo.getAll");
+	const res = await request(app.server).get("/api/trpc/todo.getAll");
 	expect(res.status).toBe(200);
 
 	const data = res.body?.result?.data;
