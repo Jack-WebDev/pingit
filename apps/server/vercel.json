@@ -1,8 +1,10 @@
 {
-	"rewrites": [{ "source": "/api/(.*)", "destination": "/api/[...all].ts" }],
-	"functions": {
-		"api/[...all].ts": {
-			"includeFiles": "src/**"
+	"builds": [
+		{
+			"src": "api/[...all].ts",
+			"use": "@vercel/node",
+			"config": { "includeFiles": "src/**" }
 		}
-	}
+	],
+	"routes": [{ "src": "/api/(.*)", "dest": "api/[...all].ts" }]
 }
