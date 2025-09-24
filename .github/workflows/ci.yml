@@ -125,9 +125,15 @@ jobs:
           --health-timeout=5s
           --health-retries=10
     env:
-      POSTGRES_URL: postgres://postgres:postgres@localhost:5432/pingit_test
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/pingit_test
-      POSTGRES_URL_NON_POOLING: postgres://postgres:postgres@localhost:5432/pingit_test
+      POSTGRES_URL: "postgres://postgres:postgres@localhost:5432/pingit_test"
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/pingit_test"
+      POSTGRES_URL_NON_POOLING: "postgres://postgres:postgres@localhost:5432/pingit_test"
+      PGHOST: "localhost"
+      PGPORT: "5432"
+      PGUSER: "postgres"
+      PGPASSWORD: "postgres"
+      PGDATABASE: "pingit_test"
+
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

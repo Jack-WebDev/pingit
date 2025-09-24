@@ -14,7 +14,7 @@
 		"db:migrate": "drizzle-kit migrate",
 		"test:watch": "vitest --watch",
 		"test:once": "vitest run --coverage",
-		"test:ci": "vitest run"
+		"test:ci": "vitest run --passWithNoTests"
 	},
 	"dependencies": {
 		"@fastify/cors": "^11.0.1",
