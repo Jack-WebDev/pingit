@@ -14,23 +14,6 @@ const ALLOWED_ORIGINS = [
 	"http://localhost:3001",
 ].filter(Boolean);
 
-// const isAllowed = (o?: string) => !!o && ALLOWED_ORIGINS.includes(o);
-
-// const baseCorsConfig = {
-//   origin: (
-//     origin: string | undefined,
-//     cb: (err: Error | null, allowed: boolean) => void
-//   ) => {
-//     if (!origin) return cb(null, true);
-//     cb(null, ALLOWED_ORIGINS.includes(origin));
-//   },
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-//   credentials: true,
-//   maxAge: 86400,
-//   strictPreflight: false,
-// };
-
 export async function createServer() {
 	const fastify = Fastify({
 		logger: process.env.NODE_ENV === "development",
