@@ -9,7 +9,7 @@ const envFile =
 			? ".env.test"
 			: ".env.development.dist";
 
-dotenv.config({ path: envFile, override: true });
+dotenv.config({ path: envFile, override: false });
 
 export const env = {
 	DATABASE_URL: process.env.DATABASE_URL || "",
