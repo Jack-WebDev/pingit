@@ -26,7 +26,6 @@ export async function createServer() {
 			cb(null, ALLOWED_ORIGINS.includes(origin));
 		},
 		credentials: true,
-		allowedHeaders: ["*"],
 		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 		maxAge: 86400,
 	});
