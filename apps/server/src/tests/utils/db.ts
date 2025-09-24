@@ -2,38 +2,35 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import pg from "pg";
 
-function buildPgConfig(): pg.PoolConfig {
-	const rawUrl =
+export function getConnectionString(): string {
+	const url =
 		process.env.POSTGRES_URL ??
 		process.env.DATABASE_URL ??
 		process.env.POSTGRES_URL_NON_POOLING;
 
-	if (rawUrl && typeof rawUrl === "string" && rawUrl.length > 0) {
-		try {
-			new URL(rawUrl);
-		} catch (e) {
-			throw new Error(`Invalid POSTGRES_URL: ${(e as Error).message}`);
-		}
-		return { connectionString: rawUrl };
+	if (url && typeof url === "string" && url.length > 0) {
+		new URL(url);
+		return url;
 	}
 
-	return {
-		host: String(process.env.PGHOST ?? "localhost"),
-		port: Number(process.env.PGPORT ?? "5432"),
-		user: String(process.env.PGUSER ?? "postgres"),
-		password: String(process.env.PGPASSWORD ?? "postgres"),
-		database: String(process.env.PGDATABASE ?? "postgres"),
-	};
+	const host = process.env.PGHOST || "localhost";
+	const port = process.env.PGPORT || "5432";
+	const user = process.env.PGUSER || "postgres";
+	const password = process.env.PGPASSWORD ?? "postgres";
+	const database = process.env.PGDATABASE || "postgres";
+	return `postgres://${encodeURIComponent(user)}:${encodeURIComponent(
+		password,
+	)}@${host}:${port}/${database}`;
 }
 
-export async function makeDb() {
-	const pool = new pg.Pool(buildPgConfig());
+export async function makeDb(connStr: string = getConnectionString()) {
+	const pool = new pg.Pool({ connectionString: connStr });
 	const db = drizzle(pool);
 	return { db, pool };
 }
 
-export async function migrateUp() {
-	const { db, pool } = await makeDb();
+export async function migrateUp(connStr?: string) {
+	const { db, pool } = await makeDb(connStr);
 	try {
 		await migrate(db, { migrationsFolder: "./src/db/migrations" });
 	} finally {
@@ -41,8 +38,8 @@ export async function migrateUp() {
 	}
 }
 
-export async function truncateAll(tables: string[]) {
-	const { pool } = await makeDb();
+export async function truncateAll(tables: string[], connStr?: string) {
+	const { pool } = await makeDb(connStr);
 	try {
 		await pool.query("BEGIN");
 		await pool.query("SET session_replication_role = replica");
